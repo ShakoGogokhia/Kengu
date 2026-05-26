@@ -115,7 +115,7 @@ export default function Welcome() {
             </main>
 
             {/* 3. Your original Footer Component */}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }
