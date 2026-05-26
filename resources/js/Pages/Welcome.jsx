@@ -80,7 +80,7 @@ export default function Welcome() {
                 </section>
 
                 {/* CATEGORIES SECTION */}
-                <section id="shop" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* <section id="shop" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900">აღმოაჩინე კატეგორიები</h2>
                         <p className="text-gray-500 mt-2 text-sm">შეარჩიე საუკეთესო მოდელი შენი პატარასთვის</p>
@@ -111,7 +111,7 @@ export default function Welcome() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
             </main>
 
             {/* 3. Your original Footer Component */}
