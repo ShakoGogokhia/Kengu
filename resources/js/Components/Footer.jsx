@@ -1,80 +1,173 @@
 import React from 'react';
+import {
+    Heart,
+    Mail,
+    MapPin,
+    Phone,
+    ShoppingBag,
+    ChevronRight,
+} from 'lucide-react';
+
+import {
+    FaFacebookF,
+    FaTiktok,
+    FaYoutube,
+    FaInstagram,
+} from "react-icons/fa";
+
+import { Link } from '@inertiajs/react';
 
 export default function Footer() {
-  return (
-    <footer className="bg-[#1A1A1A] text-gray-300 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
-        
-        {/* Column 1: Brand & Newsletter */}
-        <div className="flex flex-col gap-4">
-          <span className="text-xl font-bold tracking-widest text-white">KENGU GEORGIA</span>
-          <p className="text-sm text-gray-400 leading-relaxed">
-            Premium, durable, and stylish bags designed to carry your world comfortably—just like a kangaroo pouch.
-          </p>
-          {/* Simple Newsletter */}
-          <div className="mt-2">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Subscribe for Offers</label>
-            <div className="flex">
-              <input 
-                type="email" 
-                placeholder="Your email" 
-                className="bg-gray-800 text-white px-3 py-2 text-sm rounded-l focus:outline-none w-full border border-transparent focus:border-[#FF9244]"
-              />
-              <button className="bg-[#FF9244] hover:bg-[#e07f38] text-white px-4 py-2 text-sm font-medium rounded-r transition-colors">
-                Join
-              </button>
+    return (
+        <footer className="relative overflow-hidden border-t border-orange-100 bg-[#fffdfb]">
+
+            {/* Background */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,146,68,0.07),transparent_35%)]" />
+
+            <div className="relative mx-auto max-w-7xl px-6 py-10 lg:px-8">
+
+                {/* TOP: BRAND + SECTIONS */}
+                <div className="flex flex-col gap-10 xl:flex-row xl:justify-between">
+
+                    {/* BRAND */}
+                    <div className="max-w-sm">
+                        <Link href="/" className="group inline-block">
+                            <h2 className="text-4xl font-black tracking-[0.35em] text-gray-900 group-hover:text-[#FF9244]">
+                                KENGU
+                            </h2>
+                            <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.35em] text-[#FF9244]">
+                                Georgia
+                            </p>
+                        </Link>
+
+                        <p className="mt-4 text-sm leading-7 text-gray-500">
+                            კომფორტული და უსაფრთხო კენგურუ ჩანთები თანამედროვე მშობლებისთვის — ხარისხი, სტილი და სიმარტივე.
+                        </p>
+                    </div>
+
+                    {/* SECTIONS */}
+                    <div className="flex flex-wrap gap-16">
+
+                        {/* SHOP */}
+                        <div>
+                            <h3 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">
+                                მაღაზია
+                            </h3>
+
+                            <nav className="space-y-3">
+                                {[
+                                    { label: 'პროდუქტები', href: route('products.index') },
+                                    { label: 'ფავორიტები', href: route('favorites.index') },
+                                    { label: 'კალათა', href: route('cart.index') },
+                                ].map((item) => (
+                                    <Link key={item.label} href={item.href}
+                                        className="flex items-center gap-2 text-[15px] text-gray-600 hover:text-[#FF9244]">
+                                        <ChevronRight size={15} className="text-gray-300" />
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </nav>
+                        </div>
+
+                        {/* HELP */}
+                        <div>
+                            <h3 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">
+                                დახმარება
+                            </h3>
+
+                            <nav className="space-y-3">
+                                <Link href={route('login')} className="flex items-center gap-2 text-[15px] text-gray-600 hover:text-[#FF9244]">
+                                    <ChevronRight size={15} className="text-gray-300" />
+                                    ანგარიში
+                                </Link>
+
+                                <a href="mailto:support@kengu.ge" className="flex items-center gap-2 text-[15px] text-gray-600 hover:text-[#FF9244]">
+                                    <ChevronRight size={15} className="text-gray-300" />
+                                    დახმარება
+                                </a>
+
+                                <a href="mailto:support@kengu.ge" className="flex items-center gap-2 text-[15px] text-gray-600 hover:text-[#FF9244]">
+                                    <ChevronRight size={15} className="text-gray-300" />
+                                    კონტაქტი
+                                </a>
+                            </nav>
+                        </div>
+
+                        {/* CONTACT */}
+                        <div>
+                            <h3 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">
+                                კონტაქტი
+                            </h3>
+
+                            <div className="space-y-4 text-[15px] text-gray-600">
+
+                                <div className="flex items-center gap-2">
+                                    <MapPin size={16} className="text-[#FF9244]" />
+                                    თბილისი, საქართველო
+                                </div>
+
+                                <a href="tel:+995500000000" className="flex items-center gap-2 hover:text-[#FF9244]">
+                                    <Phone size={16} className="text-[#FF9244]" />
+                                    +995 500 00 00 00
+                                </a>
+
+                                <a href="mailto:support@kengu.ge" className="flex items-center gap-2 hover:text-[#FF9244]">
+                                    <Mail size={16} className="text-[#FF9244]" />
+                                    support@kengu.ge
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* SOCIALS (UNDER SECTIONS) */}
+                <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+
+                    <a
+                        href="https://www.instagram.com/kengu_georgiaofficial/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 rounded-full border px-5 py-2 text-xs hover:text-pink-500"
+                    >
+                        <FaInstagram /> Instagram
+                    </a>
+
+                    <a
+                        href="https://www.facebook.com/profile.php?id=61559857286854"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 rounded-full border px-5 py-2 text-xs hover:text-blue-600"
+                    >
+                        <FaFacebookF /> Facebook
+                    </a>
+
+                    <a
+                        href="https://www.tiktok.com/@kengu_georgiaofficial"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 rounded-full border px-5 py-2 text-xs hover:text-black"
+                    >
+                        <FaTiktok /> TikTok
+                    </a>
+
+                    <a
+                        href="https://www.youtube.com/@kengugeorgia"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 rounded-full border px-5 py-2 text-xs hover:text-red-600"
+                    >
+                        <FaYoutube /> YouTube
+                    </a>
+
+                </div>
+
+
+                <div className="mt-6 border-t border-orange-100 pt-6 text-center text-xs text-gray-400">
+                    © {new Date().getFullYear()} Kengu Georgia. ყველა უფლება დაცულია.
+                </div>
+
             </div>
-          </div>
-        </div>
-
-        {/* Column 2: Shop Links */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Shop Categories</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#backpacks" className="hover:text-[#FF9244] transition-colors">Daily Backpacks</a></li>
-            <li><a href="#travel" className="hover:text-[#FF9244] transition-colors">Travel & Duffels</a></li>
-            <li><a href="#totes" className="hover:text-[#FF9244] transition-colors">Tote Bags</a></li>
-            <li><a href="#accessories" className="hover:text-[#FF9244] transition-colors">Accessories</a></li>
-          </ul>
-        </div>
-
-        {/* Column 3: Customer Care */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Customer Support</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#shipping" className="hover:text-[#FF9244] transition-colors">Shipping & Delivery</a></li>
-            <li><a href="#returns" className="hover:text-[#FF9244] transition-colors">Returns & Exchanges</a></li>
-            <li><a href="#faq" className="hover:text-[#FF9244] transition-colors">FAQs</a></li>
-            <li><a href="#track" className="hover:text-[#FF9244] transition-colors">Track Your Order</a></li>
-          </ul>
-        </div>
-
-        {/* Column 4: Location & Contact */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact Us</h4>
-          <ul className="space-y-2 text-sm text-gray-400">
-            <li>📍 Tbilisi, Georgia</li>
-            <li>📞 +995 5XX XX XX XX</li>
-            <li>✉️ support@kengu.ge</li>
-            <li className="pt-2 flex gap-3 text-white">
-              {/* Simple text placeholders for Social Icons */}
-              <a href="#fb" className="hover:text-[#FF9244]">FB</a>
-              <a href="#ig" className="hover:text-[#FF9244]">IG</a>
-              <a href="#tiktok" className="hover:text-[#FF9244]">TK</a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-      {/* Bottom Copyright Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-        <p>&copy; {new Date().getFullYear()} Kengu Georgia Bags. All rights reserved.</p>
-        <div className="flex gap-4">
-          <span>Visa / Mastercard</span>
-          <span>Cash on Delivery</span>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 }
