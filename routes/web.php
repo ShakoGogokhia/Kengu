@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\HeroSlideController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -39,11 +42,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/payment-method', [CheckoutController::class, 'savePaymentMethod'])->name('checkout.payment-method.store');
+    Route::post('/checkout/pay', [CheckoutController::class, 'pay'])->name('checkout.pay');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/products', [AdminProductController::class, 'index'])->name('products.index');
     Route::post('/products', [AdminProductController::class, 'store'])->name('products.store');
+    Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{order}/accept', [AdminOrderController::class, 'accept'])->name('orders.accept');
+    Route::post('/orders/{order}/decline', [AdminOrderController::class, 'decline'])->name('orders.decline');
     Route::post('/settings', [HeroSlideController::class, 'updateSettings'])->name('settings.update');
     Route::resource('hero-slides', HeroSlideController::class);
 });

@@ -45,8 +45,8 @@ export default function CartIndex({ items }) {
                                         </div>
                                         <div className="mt-3 flex items-center justify-between">
                                             <p className="text-sm text-gray-600">რაოდენობა: <span className="font-semibold text-gray-900">{item.quantity}</span></p>
-                                            <p className="text-sm text-gray-600">ერთ. ფასი: <span className="font-semibold text-gray-900">{Number(product.price).toFixed(2)} ₾</span></p>
-                                            <p className="text-lg font-black text-[#FF9244]">{(Number(product.price) * item.quantity).toFixed(2)} ₾</p>
+                                            <p className="text-sm text-gray-600">ერთ. ფასი: <span className="font-semibold text-gray-900">{Number(product.price).toFixed(2)} GEL</span></p>
+                                            <p className="text-lg font-black text-[#FF9244]">{(Number(product.price) * item.quantity).toFixed(2)} GEL</p>
                                         </div>
                                     </div>
                                 </article>
@@ -65,8 +65,14 @@ export default function CartIndex({ items }) {
                         <div className="mt-6 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm">
                             <div className="flex items-center justify-between">
                                 <span className="text-sm text-gray-500">ჯამური ღირებულება</span>
-                                <span className="text-2xl font-black">{total.toFixed(2)} ₾</span>
+                                <span className="text-2xl font-black">{total.toFixed(2)} GEL</span>
                             </div>
+                            <Link
+                                href={route('checkout.index')}
+                                className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-[#FF9244] px-4 py-3 text-sm font-bold text-white hover:bg-[#e07f38]"
+                            >
+                                ყიდვა ახლა
+                            </Link>
                         </div>
                     )}
                 </div>

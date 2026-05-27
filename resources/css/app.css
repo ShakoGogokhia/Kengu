@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --brand-orange: #ff9244;
+    --brand-orange-dark: #e07f38;
+    --brand-orange-soft: #ffb277;
+    --scroll-track: #fff4ea;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-color: var(--brand-orange) var(--scroll-track);
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #fff8f2 0%, #fff2e6 100%);
+    border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--brand-orange-soft) 0%, var(--brand-orange) 45%, var(--brand-orange-dark) 100%);
+    border-radius: 999px;
+    border: 2px solid #fff8f2;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 2px 8px rgba(224, 127, 56, 0.25);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ffbf8d 0%, #ffa25a 45%, #de7a33 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        0 4px 12px rgba(224, 127, 56, 0.32);
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #ffa45e 0%, #f28d45 55%, #d46f2a 100%);
+}
+
+*::-webkit-scrollbar-corner {
+    background: #fff6ef;
+}

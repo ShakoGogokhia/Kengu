@@ -47,6 +47,9 @@ export default function Header() {
                                 <Dropdown.Link href={route('admin.products.index')}>
                                     პროდუქტების მართვა
                                 </Dropdown.Link>
+                                <Dropdown.Link href={route('admin.orders.index')}>
+                                    შეკვეთები
+                                </Dropdown.Link>
                             </Dropdown.Content>
                         </Dropdown>
                     )}
@@ -104,6 +107,9 @@ export default function Header() {
                                 <Dropdown.Content contentClasses="py-1 bg-white">
                                     <Dropdown.Link href={route('profile.edit')}>
                                         პროფილის პარამეტრები
+                                    </Dropdown.Link>
+                                    <Dropdown.Link href={route('orders.index')}>
+                                        შეკვეთები
                                     </Dropdown.Link>
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         გასვლა

@@ -14,8 +14,10 @@ export default function UpdateProfileInformation({
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
-            name: user.name,
-            email: user.email,
+            name: user.name ?? '',
+            email: user.email ?? '',
+            phone: user.phone ?? '',
+            address: user.address ?? '',
         });
 
     const submit = (e) => {
@@ -32,7 +34,7 @@ export default function UpdateProfileInformation({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    განაახლე შენი ანგარიშის პროფილის ინფორმაცია და ელფოსტა.
+                    განაახლე შენი ანგარიშის ინფორმაცია, საკონტაქტო ტელეფონი და მისამართი.
                 </p>
             </header>
 
@@ -69,6 +71,34 @@ export default function UpdateProfileInformation({
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
+                <div>
+                    <InputLabel htmlFor="phone" value="ტელეფონი" />
+
+                    <TextInput
+                        id="phone"
+                        className="mt-1 block w-full"
+                        value={data.phone}
+                        onChange={(e) => setData('phone', e.target.value)}
+                        required
+                    />
+
+                    <InputError className="mt-2" message={errors.phone} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="address" value="მისამართი" />
+
+                    <TextInput
+                        id="address"
+                        className="mt-1 block w-full"
+                        value={data.address}
+                        onChange={(e) => setData('address', e.target.value)}
+                        required
+                    />
+
+                    <InputError className="mt-2" message={errors.address} />
+                </div>
+
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800">
@@ -79,7 +109,7 @@ export default function UpdateProfileInformation({
                                 as="button"
                                 className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
-                                დააჭირე აქ ელფოსტის დასადასტურებელი წერილის თავიდან გასაგზავნად.
+                                დააჭირე აქ ელფოსტის დადასტურების წერილის თავიდან გასაგზავნად.
                             </Link>
                         </p>
 
