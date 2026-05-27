@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/hero-slides/{heroSlide}/image', [HeroSlideController::class, 'image'])->name('hero-slides.image');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

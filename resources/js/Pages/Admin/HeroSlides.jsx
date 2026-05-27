@@ -41,7 +41,7 @@ export default function HeroSlides({ auth, slides, siteSettings = {} }) {
             url = URL.createObjectURL(data.image);
             setPreviewUrl(url);
         } else if (editingSlide) {
-            setPreviewUrl(`/storage/${editingSlide.image}`);
+            setPreviewUrl(editingSlide.image_url || editingSlide.image);
         } else {
             setPreviewUrl(null);
         }
@@ -154,7 +154,7 @@ export default function HeroSlides({ auth, slides, siteSettings = {} }) {
                                         {slides.map((slide) => (
                                             <div key={slide.id} className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                                 <div className={`h-40 flex items-center justify-center p-4 ${slide.color}`}>
-                                                    <img src={`/storage/${slide.image}`} alt={slide.title} className="h-full object-contain" />
+                                                    <img src={slide.image_url || slide.image} alt={slide.title} className="h-full object-contain" />
                                                 </div>
                                                 <div className="p-4">
                                                     <h3 className="font-bold text-lg">{slide.title}</h3>

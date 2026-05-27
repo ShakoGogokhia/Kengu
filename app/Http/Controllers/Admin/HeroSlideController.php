@@ -5,12 +5,39 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HeroSlide;
 use App\Models\SiteSetting;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class HeroSlideController extends Controller
 {
+    public function image(HeroSlide $heroSlide): Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        if (! $heroSlide->image) {
+            abort(404);
+        }
+
+        if (str_starts_with($heroSlide->image, '/uploads/')) {
+            $publicPath = public_path(ltrim($heroSlide->image, '/'));
+
+            if (! file_exists($publicPath)) {
+                abort(404);
+            }
+
+            return response()->file($publicPath);
+        }
+
+        if (! Storage::disk('public')->exists($heroSlide->image)) {
+            abort(404);
+        }
+
+        return response(Storage::disk('public')->get($heroSlide->image), 200, [
+            'Content-Type' => Storage::disk('public')->mimeType($heroSlide->image) ?? 'application/octet-stream',
+            'Cache-Control' => 'public, max-age=31536000',
+        ]);
+    }
+
     public function index()
     {
         return Inertia::render('Admin/HeroSlides', [

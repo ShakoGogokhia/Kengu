@@ -59,7 +59,7 @@ export default function HeroCarousel({ slides = [] }) {
                         }`}>
                             <div className="absolute -inset-10 rounded-full bg-orange-100/60 blur-3xl animate-pulse" />
                             <img
-                                src={slide.image?.startsWith('http') ? slide.image : `/storage/${slide.image}`}
+                                src={slide.image_url || slide.image}
                                 alt={slide.title}
                                 className="relative z-10 h-[300px] w-auto object-contain transition-transform duration-[2000ms] hover:scale-110 lg:h-[500px]"
                             />
