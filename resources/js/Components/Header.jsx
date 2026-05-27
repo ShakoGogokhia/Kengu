@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Search, Menu, User } from 'lucide-react';
+import { ShoppingBag, Heart, Search, Menu, User, ChevronDown } from 'lucide-react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import Dropdown from '@/Components/Dropdown';
 
@@ -33,9 +33,22 @@ export default function Header() {
                         პროდუქტები
                     </Link>
                     {auth.user?.is_admin && (
-                        <Link href={route('admin.products.index')} className="transition-colors hover:text-[#FF9244]">
-                            ადმინ პანელი
-                        </Link>
+                        <Dropdown>
+                            <Dropdown.Trigger>
+                                <button type="button" className="flex items-center gap-1 transition-colors hover:text-[#FF9244]">
+                                    ადმინ პანელი
+                                    <ChevronDown size={14} />
+                                </button>
+                            </Dropdown.Trigger>
+                            <Dropdown.Content contentClasses="py-1 bg-white">
+                                <Dropdown.Link href={route('admin.hero-slides.index')}>
+                                    კარუსელი & პარამეტრები
+                                </Dropdown.Link>
+                                <Dropdown.Link href={route('admin.products.index')}>
+                                    პროდუქტების მართვა
+                                </Dropdown.Link>
+                            </Dropdown.Content>
+                        </Dropdown>
                     )}
                 </nav>
 

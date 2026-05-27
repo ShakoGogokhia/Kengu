@@ -2,36 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
-const slides = [
-    {
-        id: 1,
-        title: 'KENGU ERGO PRO',
-        subtitle: 'ერგონომიული და კომფორტული ჩანთები თანამედროვე მშობლებისთვის',
-        image: '/images/kengu_1.png',
-        color: 'bg-[#FFF8F3]',
-    },
-    {
-        id: 2,
-        title: 'KENGU AIR FLOW',
-        subtitle: 'სუნთქვადი მასალა და მაქსიმალური ჰაერაცია თქვენი პატარასთვის',
-        image: '/images/kengu_2.png',
-        color: 'bg-[#FDFBF9]',
-    },
-    {
-        id: 3,
-        title: 'KENGU CLASSIC',
-        subtitle: 'იდეალური არჩევანი და სიმარტივე ყოველდღიური გამოყენებისთვის',
-        image: '/images/kengu_3.png',
-        color: 'bg-white',
-    },
-];
-
-export default function HeroCarousel() {
+export default function HeroCarousel({ slides = [] }) {
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    if (!slides || slides.length === 0) {
+        return null;
+    }
 
     const nextSlide = useCallback(() => {
         setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, []);
+    }, [slides.length]);
 
     const prevSlide = () => {
         setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -40,7 +20,7 @@ export default function HeroCarousel() {
     useEffect(() => {
         const timer = setInterval(nextSlide, 6000);
         return () => clearInterval(timer);
-    }, [nextSlide]);
+    }, [nextSlide, slides.length]);
 
     return (
         <section className="relative h-[550px] w-full overflow-hidden bg-white sm:h-[650px]">
@@ -49,7 +29,7 @@ export default function HeroCarousel() {
                     key={slide.id}
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
                         index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                    } ${slide.color}`}
+                    } ${slide.color || 'bg-white'}`}
                 >
                     <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center gap-12 px-6 md:flex-row">
                         {/* Text Content with Slide Animation */}
@@ -79,7 +59,7 @@ export default function HeroCarousel() {
                         }`}>
                             <div className="absolute -inset-10 rounded-full bg-orange-100/60 blur-3xl animate-pulse" />
                             <img
-                                src={slide.image}
+                                src={slide.image?.startsWith('http') ? slide.image : `/storage/${slide.image}`}
                                 alt={slide.title}
                                 className="relative z-10 h-[300px] w-auto object-contain transition-transform duration-[2000ms] hover:scale-110 lg:h-[500px]"
                             />
@@ -88,32 +68,36 @@ export default function HeroCarousel() {
                 </div>
             ))}
 
-            {/* Controls */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-gray-100 bg-white/80 p-4 text-gray-800 shadow-xl backdrop-blur-sm transition-all hover:bg-[#FF9244] hover:text-white sm:left-8"
-            >
-                <ChevronLeft size={24} />
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-gray-100 bg-white/80 p-4 text-gray-800 shadow-xl backdrop-blur-sm transition-all hover:bg-[#FF9244] hover:text-white sm:right-8"
-            >
-                <ChevronRight size={24} />
-            </button>
-
-            {/* Pagination Indicators */}
-            <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-4">
-                {slides.map((_, index) => (
+            {slides.length > 1 && (
+                <>
+                    {/* Controls */}
                     <button
-                        key={index}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`h-2 transition-all duration-500 rounded-full ${
-                            index === currentIndex ? 'w-12 bg-[#FF9244]' : 'w-3 bg-gray-300'
-                        }`}
-                    />
-                ))}
-            </div>
+                        onClick={prevSlide}
+                        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-gray-100 bg-white/80 p-4 text-gray-800 shadow-xl backdrop-blur-sm transition-all hover:bg-[#FF9244] hover:text-white sm:left-8"
+                    >
+                        <ChevronLeft size={24} />
+                    </button>
+                    <button
+                        onClick={nextSlide}
+                        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-gray-100 bg-white/80 p-4 text-gray-800 shadow-xl backdrop-blur-sm transition-all hover:bg-[#FF9244] hover:text-white sm:right-8"
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+
+                    {/* Pagination Indicators */}
+                    <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-4">
+                        {slides.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentIndex(index)}
+                                className={`h-2 transition-all duration-500 rounded-full ${
+                                    index === currentIndex ? 'w-12 bg-[#FF9244]' : 'w-3 bg-gray-300'
+                                }`}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
         </section>
     );
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use App\Models\HeroSlide;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,6 +15,8 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'slides' => HeroSlide::where('is_active', true)->orderBy('order')->get(),
+        'siteSettings' => HeroSlide::all()->pluck('value', 'key'), // Example: pass to Welcome too
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -39,6 +43,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/products', [AdminProductController::class, 'index'])->name('products.index');
     Route::post('/products', [AdminProductController::class, 'store'])->name('products.store');
+    Route::post('/settings', [HeroSlideController::class, 'updateSettings'])->name('settings.update');
+    Route::resource('hero-slides', HeroSlideController::class);
 });
 
 require __DIR__.'/auth.php';
